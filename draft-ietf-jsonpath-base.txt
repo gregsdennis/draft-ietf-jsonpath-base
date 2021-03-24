@@ -3,7 +3,7 @@
 
 
 JSONPath WG                                           G. Normington, Ed.
-Internet-Draft                                              VMware, Inc.
+Internet-Draft                                                   Retired
 Intended status: Standards Track                           E. Surov, Ed.
 Expires: 25 September 2021                       TheSoul Publishing Ltd.
                                                        M. Mikulicic, Ed.
@@ -927,7 +927,7 @@ Contributors
 Authors' Addresses
 
    Glyn Normington (editor)
-   VMware, Inc.
+   Retired
    Winchester
    United Kingdom
 
