@@ -3,7 +3,7 @@
 
 
 JSONPath WG                                           G. Normington, Ed.
-Internet-Draft                                              VMware, Inc.
+Internet-Draft                                                          
 Intended status: Standards Track                           E. Surov, Ed.
 Expires: 25 September 2021                       TheSoul Publishing Ltd.
                                                        M. Mikulicic, Ed.
@@ -13,7 +13,7 @@ Expires: 25 September 2021                       TheSoul Publishing Ltd.
                                                            24 March 2021
 
 
-                 JavaScript Object Notation (JSON) Path
+                  JSONPath: Query expressions for JSON
                     draft-ietf-jsonpath-base-latest
 
 Abstract
@@ -970,7 +970,6 @@ Contributors
 Authors' Addresses
 
    Glyn Normington (editor)
-   VMware, Inc.
    Winchester
    United Kingdom
 
