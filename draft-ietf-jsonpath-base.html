@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>JavaScript Object Notation (JSON) Path</title>
+<title>JSONPath: Query expressions for JSON</title>
 <meta content="Glyn Normington" name="author">
 <meta content="Edward Surov" name="author">
 <meta content="Marko Mikulicic" name="author">
@@ -888,7 +888,7 @@ address div.right {
 </dd>
 </dl>
 </div>
-<h1 id="title">JavaScript Object Notation (JSON) Path</h1>
+<h1 id="title">JSONPath: Query expressions for JSON</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">JSONPath defines a string syntax for identifying values
@@ -955,14 +955,14 @@ be covered.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <nav class="toc"><ul class="ulEmpty compact toc">
 <li class="ulEmpty compact toc" id="section-toc.1-1.1">
             <p id="section-toc.1-1.1.1"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.1.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.1.2.1">
                 <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="xref">1.1</a>.  <a href="#name-terminology" class="xref">Terminology</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.2">
                 <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="xref">1.2</a>.  <a href="#name-inspired-by-xpath" class="xref">Inspired by XPath</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.1.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.1.2.3">
                 <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="xref">1.3</a>.  <a href="#name-overview-of-jsonpath-expres" class="xref">Overview of JSONPath Expressions</a></p>
 </li>
             </ul>
@@ -972,41 +972,41 @@ be covered.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 </li>
           <li class="ulEmpty compact toc" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-jsonpath-syntax-and-semanti" class="xref">JSONPath Syntax and Semantics</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.3.2.1">
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-overview" class="xref">Overview</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.2">
                 <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-terminology-2" class="xref">Terminology</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.3">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.3">
                 <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-implementation" class="xref">Implementation</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.4">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.4">
                 <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-syntax" class="xref">Syntax</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.5">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.5">
                 <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-semantics" class="xref">Semantics</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6">
                 <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="xref">3.6</a>.  <a href="#name-selectors" class="xref">Selectors</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6.2.1">
                     <p id="section-toc.1-1.3.2.6.2.1.1"><a href="#section-3.6.1" class="xref">3.6.1</a>.  <a href="#name-dot-child-selector" class="xref">Dot Child Selector</a></p>
 </li>
-                  <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.2">
+                  <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6.2.2">
                     <p id="section-toc.1-1.3.2.6.2.2.1"><a href="#section-3.6.2" class="xref">3.6.2</a>.  <a href="#name-union-selector" class="xref">Union Selector</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.2.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6.2.2.2.1">
                         <p id="section-toc.1-1.3.2.6.2.2.2.1.1"><a href="#section-3.6.2.1" class="xref">3.6.2.1</a>.  <a href="#name-syntax-3" class="xref">Syntax</a></p>
 </li>
-                      <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.2.2.2">
+                      <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6.2.2.2.2">
                         <p id="section-toc.1-1.3.2.6.2.2.2.2.1"><a href="#section-3.6.2.2" class="xref">3.6.2.2</a>.  <a href="#name-semantics-3" class="xref">Semantics</a></p>
 </li>
-                      <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.2.2.3">
+                      <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6.2.2.2.3">
                         <p id="section-toc.1-1.3.2.6.2.2.2.3.1"><a href="#section-3.6.2.3" class="xref">3.6.2.3</a>.  <a href="#name-child" class="xref">Child</a></p>
 </li>
-                      <li class="ulEmpty compact toc" id="section-toc.1-1.3.2.6.2.2.2.4">
+                      <li class="compact ulEmpty toc" id="section-toc.1-1.3.2.6.2.2.2.4">
                         <p id="section-toc.1-1.3.2.6.2.2.2.4.1"><a href="#section-3.6.2.4" class="xref">3.6.2.4</a>.  <a href="#name-array-selector" class="xref">Array Selector</a></p>
 </li>
                     </ul>
@@ -1023,11 +1023,11 @@ be covered.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 </li>
           <li class="ulEmpty compact toc" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-references" class="xref">References</a></p>
-<ul class="ulEmpty compact toc">
-<li class="ulEmpty compact toc" id="section-toc.1-1.6.2.1">
+<ul class="compact ulEmpty toc">
+<li class="compact ulEmpty toc" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="xref">6.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
 </li>
-              <li class="ulEmpty compact toc" id="section-toc.1-1.6.2.2">
+              <li class="compact ulEmpty toc" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="xref">6.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
             </ul>

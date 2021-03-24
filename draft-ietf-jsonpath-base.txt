@@ -13,7 +13,7 @@ Expires: 25 September 2021                       TheSoul Publishing Ltd.
                                                            24 March 2021
 
 
-                 JavaScript Object Notation (JSON) Path
+                  JSONPath: Query expressions for JSON
                     draft-ietf-jsonpath-base-latest
 
 Abstract
