@@ -447,8 +447,8 @@ Table of Contents
    JSONPath query, e.g., because of resource depletion, but this is not
    modeled in the present specification.)
 
-      Discussion: are we ready for the error model defined here, i.e.
-      one that does not have runtime errors, but only compile time
+      Discussion (D1): are we ready for the error model defined here,
+      i.e. one that does not have runtime errors, but only compile time
       errors?
 
 3.2.  Processing Model
@@ -485,7 +485,7 @@ Table of Contents
    result nodelist, which are then combined by algorithm _combine1_ into
    the result of the selector.
 
-      Discussion: We haven't decided yet whether there is only one
+      Discussion (D2): We haven't decided yet whether there is only one
       _combine1_ or a choice, with for instance simple concatenation and
       concatenation with duplicate removal, based on a definition of
       duplicate, are candidates.
@@ -523,14 +523,14 @@ Table of Contents
    nodelist for each of them, as follows, which are then combined using
    the combine1 algorithm to form the result nodelist of the selector.
 
-      Discussion: Do we allow selectors that have their own combine1
-      variant, or can we always use the same?
+      Discussion (D3): Do we allow selectors that have their own
+      combine1 variant, or can we always use the same?
 
    For each node in the list, the selector selects zero or more nodes,
    each of which is a descendant of the node or the node itself.
 
-      Discussion: Is that a common requirement?  Or can a selector also
-      go up, or to the query Argument?
+      Discussion (D4): Is that a common requirement?  Or can a selector
+      also go up, or to the query Argument?
 
    For instance, with the Argument "{"a":[{"b":0},{"b":1},{"c":2}]}",
    the JSONPath "$.a[*].b" selects the following list of nodes: "0", "1"
