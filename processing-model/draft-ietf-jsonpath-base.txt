@@ -5,12 +5,12 @@
 JSONPath WG                                           G. Normington, Ed.
 Internet-Draft                                                          
 Intended status: Standards Track                           E. Surov, Ed.
-Expires: 27 September 2021                       TheSoul Publishing Ltd.
+Expires: 28 September 2021                       TheSoul Publishing Ltd.
                                                        M. Mikulicic, Ed.
                                                         InfluxData, Inc.
                                                               S. Gössner
                                                  Fachhochschule Dortmund
-                                                           26 March 2021
+                                                           27 March 2021
 
 
                   JSONPath: Query expressions for JSON
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 September 2021.
+   This Internet-Draft will expire on 28 September 2021.
 
 Copyright Notice
 
@@ -466,7 +466,7 @@ Table of Contents
    definitions in [RFC8259], i.e., is indeed a JSON value.)
 
    The JSONPath query is a sequence of zero or more _selectors_, each of
-   which is applied to the result of the previous selector and leaves
+   which is applied to the result of the previous selector and provides
    input to the next selector.  These results and inputs take the form
    of a _nodelist_, i.e., a sequence of zero or more nodes.
 
