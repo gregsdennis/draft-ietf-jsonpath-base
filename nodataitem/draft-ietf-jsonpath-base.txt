@@ -375,52 +375,52 @@ Table of Contents
    in a object, and to perform numeric comparisons of member values with
    a constant.
 
-   +======================+=========================+==================+
-   | XPath                | JSONPath                | Result           |
-   +======================+=========================+==================+
-   | /store/book/author   | $.store.book[*].author  | the authors      |
-   |                      |                         | of all books     |
-   |                      |                         | in the store     |
-   +----------------------+-------------------------+------------------+
-   | //author             | $..author               | all authors      |
-   +----------------------+-------------------------+------------------+
-   | /store/*             | $.store.*               | all things in    |
-   |                      |                         | store, which     |
-   |                      |                         | are some         |
-   |                      |                         | books and a      |
-   |                      |                         | red bicycle      |
-   +----------------------+-------------------------+------------------+
-   | /store//price        | $.store..price          | the prices of    |
-   |                      |                         | everything in    |
-   |                      |                         | the store        |
-   +----------------------+-------------------------+------------------+
-   | //book[3]            | $..book[2]              | the third        |
-   |                      |                         | book             |
-   +----------------------+-------------------------+------------------+
-   | //book[last()]       | "$..book[(@.length-1)]" | the last book    |
-   |                      | "$..book[-1]"           | in order         |
-   +----------------------+-------------------------+------------------+
-   | //book[position()<3] | "$..book[0,1]"          | the first two    |
-   |                      | "$..book[:2]"           | books            |
-   +----------------------+-------------------------+------------------+
-   | //book[isbn]         | $..book[?(@.isbn)]      | filter all       |
-   |                      |                         | books with       |
-   |                      |                         | isbn number      |
-   +----------------------+-------------------------+------------------+
-   | //book[price<10]     | $..book[?(@.price<10)]  | filter all       |
-   |                      |                         | books cheaper    |
-   |                      |                         | than 10          |
-   +----------------------+-------------------------+------------------+
-   | //*                  | $..*                    | all elements     |
-   |                      |                         | in XML           |
-   |                      |                         | document; all    |
-   |                      |                         | member values    |
-   |                      |                         | contained in     |
-   |                      |                         | JSON value       |
-   +----------------------+-------------------------+------------------+
+   +======================+=========================+=================+
+   | XPath                | JSONPath                | Result          |
+   +======================+=========================+=================+
+   | /store/book/author   | $.store.book[*].author  | the authors of  |
+   |                      |                         | all books in    |
+   |                      |                         | the store       |
+   +----------------------+-------------------------+-----------------+
+   | //author             | $..author               | all authors     |
+   +----------------------+-------------------------+-----------------+
+   | /store/*             | $.store.*               | all things in   |
+   |                      |                         | store, which    |
+   |                      |                         | are some books  |
+   |                      |                         | and a red       |
+   |                      |                         | bicycle         |
+   +----------------------+-------------------------+-----------------+
+   | /store//price        | $.store..price          | the prices of   |
+   |                      |                         | everything in   |
+   |                      |                         | the store       |
+   +----------------------+-------------------------+-----------------+
+   | //book[3]            | $..book[2]              | the third book  |
+   +----------------------+-------------------------+-----------------+
+   | //book[last()]       | "$..book[(@.length-1)]" | the last book   |
+   |                      | "$..book[-1]"           | in order        |
+   +----------------------+-------------------------+-----------------+
+   | //book[position()<3] | "$..book[0,1]"          | the first two   |
+   |                      | "$..book[:2]"           | books           |
+   +----------------------+-------------------------+-----------------+
+   | //book[isbn]         | $..book[?(@.isbn)]      | filter all      |
+   |                      |                         | books with isbn |
+   |                      |                         | number          |
+   +----------------------+-------------------------+-----------------+
+   | //book[price<10]     | $..book[?(@.price<10)]  | filter all      |
+   |                      |                         | books cheaper   |
+   |                      |                         | than 10         |
+   +----------------------+-------------------------+-----------------+
+   | //*                  | $..*                    | all elements in |
+   |                      |                         | XML document;   |
+   |                      |                         | all member      |
+   |                      |                         | values and      |
+   |                      |                         | array elements  |
+   |                      |                         | contained in    |
+   |                      |                         | JSON value      |
+   +----------------------+-------------------------+-----------------+
 
-     Table 2: Example JSONPath expressions applied to the example JSON
-                                   value
+       Table 2: Example JSONPath expressions applied to the example
+                                JSON value
 
 3.  JSONPath Syntax and Semantics
 
@@ -896,7 +896,9 @@ Detailed Semantics
               DOI 10.17487/RFC2119, March 1997,
               <https://datatracker.ietf.org/doc/html/rfc2119>.
 
-   [RFC3629]  "*** BROKEN REFERENCE ***".
+   [RFC3629]  Yergeau, F., "UTF-8, a transformation format of ISO
+              10646", STD 63, RFC 3629, DOI 10.17487/RFC3629, November
+              2003, <https://datatracker.ietf.org/doc/html/rfc3629>.
 
    [RFC5234]  Crocker, D., Ed. and P. Overell, "Augmented BNF for Syntax
               Specifications: ABNF", STD 68, RFC 5234,
