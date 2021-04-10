@@ -5,12 +5,12 @@
 JSONPath WG                                           G. Normington, Ed.
 Internet-Draft                                                          
 Intended status: Standards Track                           E. Surov, Ed.
-Expires: 29 September 2021                       TheSoul Publishing Ltd.
+Expires: 12 October 2021                         TheSoul Publishing Ltd.
                                                        M. Mikulicic, Ed.
                                                         InfluxData, Inc.
                                                               S. Gössner
                                                  Fachhochschule Dortmund
-                                                           28 March 2021
+                                                           10 April 2021
 
 
                   JSONPath: Query expressions for JSON
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 September 2021.
+   This Internet-Draft will expire on 12 October 2021.
 
 Copyright Notice
 
@@ -136,17 +136,16 @@ Table of Contents
    its Argument.  The node referring to the entirety of this JSON value
    is also referred to as its root node.
 
-   Data Item:  A structure complying to the generic data model of JSON,
-      i.e., composed of containers, namely JSON objects and arrays, and
-      of atomic data, namely null, true, false, numbers, and text
-      strings.  Also called a JSON value.  In this document, often
-      abbreviated to _item_.
+   JSON value:  As per [RFC8259], a structure complying to the generic
+      data model of JSON, i.e., composed of components such as
+      containers, namely JSON objects and arrays, and atomic data,
+      namely null, true, false, numbers, and text strings.
 
-   Node:  A Data Item, with an emphasis on the location of the item
-      within the Argument.  I.e., an item identical to or contained
-      within the JSON data item to which the query is applied.  A node
-      can be viewed as a combination of a (1) JSON value and (2) its
-      location in the argument; the latter can, if desired, be
+   Node:  A JSON value, with an emphasis on its location within the
+      Argument.  I.e., a JSON value that is identical to or contained
+      within the JSON value to which the query is applied.  A node can
+      be viewed as a combination of a (1) JSON value and (2) its
+      location in the Argument; the latter can, if desired, be
       represented as an Output Path.
 
    Object:  A JSON object as defined in [RFC8259].  Never used in its
@@ -161,8 +160,8 @@ Table of Contents
    Array:  A JSON array as defined in [RFC8259].  Never used in its
       generic sense, e.g., for programming language objects.
 
-   Element:  An item in an array.  (Also used with a distinct meaning in
-      XML context for XML elements.)
+   Element:  A JSON value in an array.  (Also used with a distinct
+      meaning in XML context for XML elements.)
 
    Index:  A non-negative integer that identifies a specific element in
       an array.  The term, in particular in the form indexing, is also
@@ -171,13 +170,13 @@ Table of Contents
 
    Query:  Short name for JSONPath expression.
 
-   Argument:  Short name for the JSON data item a JSONPath expression is
+   Argument:  Short name for the JSON value a JSONPath expression is
       applied to.
 
    Nodelist:  Output of applying a query to an argument: a list of nodes
       within that argument.  While this list can be represented in JSON,
       e.g. as an array, the nodelist is an abstract concept unrelated to
-      JSON data items.
+      JSON values.
 
    Output Path:  A simple form of JSONPath expression that identifies a
       node by providing a query that results in exactly that node.
@@ -194,7 +193,7 @@ Table of Contents
    for the emerging JSON community became apparent, specifically for:
 
    *  Finding data interactively and extracting them out of [RFC8259]
-      data items without special scripting.
+      JSON values without special scripting.
 
    *  Specifying the relevant parts of the JSON data in a request by a
       client, so the server can reduce the amount of data in its
@@ -216,9 +215,8 @@ Table of Contents
    x['store']['book'][0]['title']
 
    in popular programming languages such as JavaScript, Python and PHP,
-   with a variable x holding the JSON data item.  Here we observe that
-   such languages already have a fundamentally XPath-like feature built
-   in.
+   with a variable x holding the JSON value.  Here we observe that such
+   languages already have a fundamentally XPath-like feature built in.
 
    The JSONPath tool in question should:
 
@@ -232,10 +230,10 @@ Table of Contents
 
 1.3.  Overview of JSONPath Expressions
 
-   JSONPath expressions always apply to a JSON data item in the same way
-   as XPath expressions are used in combination with an XML document.
-   Since a JSON data item is anonymous, JSONPath uses the abstract name
-   "$" to refer to the top level data item of the argument.
+   JSONPath expressions always apply to a JSON value in the same way as
+   XPath expressions are used in combination with an XML document.
+   Since a JSON value is anonymous, JSONPath uses the abstract name "$"
+   to refer to the entire JSON value ("root node") of the argument.
 
    JSONPath expressions can use the _dot-notation_
 
@@ -267,7 +265,7 @@ Table of Contents
 
    $.store.book[(@.length-1)].title
 
-   The symbol "@" is used for the current item.  Filter expressions are
+   The symbol "@" is used for the current node.  Filter expressions are
    supported via the syntax "?(<boolean expr>)" as in
 
    $.store.book[?(@.price < 10)].title
@@ -278,9 +276,9 @@ Table of Contents
     +=======+==================+=====================================+
     | XPath | JSONPath         | Description                         |
     +=======+==================+=====================================+
-    | /     | $                | the root element/item               |
+    | /     | $                | the root element/node               |
     +-------+------------------+-------------------------------------+
-    | .     | @                | the current element/item            |
+    | .     | @                | the current element/node            |
     +-------+------------------+-------------------------------------+
     | /     | "." or "[]"      | child operator                      |
     +-------+------------------+-------------------------------------+
@@ -289,11 +287,11 @@ Table of Contents
     | //    | ..               | nested descendants (JSONPath        |
     |       |                  | borrows this syntax from E4X)       |
     +-------+------------------+-------------------------------------+
-    | *     | *                | wildcard: All elements/items        |
+    | *     | *                | wildcard: All elements/nodes        |
     |       |                  | regardless of their names           |
     +-------+------------------+-------------------------------------+
-    | @     | n/a              | attribute access: JSON data items   |
-    |       |                  | do not have attributes              |
+    | @     | n/a              | attribute access: JSON values do    |
+    |       |                  | not have attributes                 |
     +-------+------------------+-------------------------------------+
     | []    | []               | subscript operator: XPath uses it   |
     |       |                  | to iterate over element collections |
@@ -334,9 +332,9 @@ Table of Contents
 2.  JSONPath Examples
 
    This section provides some more examples for JSONPath expressions.
-   The examples are based on a simple JSON data item patterned after a
-   typical XML example representing a bookstore (that also has
-   bicycles):
+   The examples are based on the simple JSON value shown in Figure 1,
+   which was patterned after a typical XML example representing a
+   bookstore (that also has bicycles).
 
    { "store": {
        "book": [
@@ -370,57 +368,59 @@ Table of Contents
      }
    }
 
-                      Figure 1: Example JSON data item
+                        Figure 1: Example JSON value
 
    The examples in Table 2 use the expression mechanism to obtain the
-   number of items in an array, to test for the presence of a member in
-   a object, and to perform numeric comparisons of member values with a
-   constant.
+   number of elements in an array, to test for the presence of a member
+   in a object, and to perform numeric comparisons of member values with
+   a constant.
 
-   +======================+=========================+==================+
-   | XPath                | JSONPath                | Result           |
-   +======================+=========================+==================+
-   | /store/book/author   | $.store.book[*].author  | the authors of   |
-   |                      |                         | all books in     |
-   |                      |                         | the store        |
-   +----------------------+-------------------------+------------------+
-   | //author             | $..author               | all authors      |
-   +----------------------+-------------------------+------------------+
-   | /store/*             | $.store.*               | all things in    |
-   |                      |                         | store, which     |
-   |                      |                         | are some books   |
-   |                      |                         | and a red        |
-   |                      |                         | bicycle          |
-   +----------------------+-------------------------+------------------+
-   | /store//price        | $.store..price          | the prices of    |
-   |                      |                         | everything in    |
-   |                      |                         | the store        |
-   +----------------------+-------------------------+------------------+
-   | //book[3]            | $..book[2]              | the third book   |
-   +----------------------+-------------------------+------------------+
-   | //book[last()]       | "$..book[(@.length-1)]" | the last book    |
-   |                      | "$..book[-1]"           | in order         |
-   +----------------------+-------------------------+------------------+
-   | //book[position()<3] | "$..book[0,1]"          | the first two    |
-   |                      | "$..book[:2]"           | books            |
-   +----------------------+-------------------------+------------------+
-   | //book[isbn]         | $..book[?(@.isbn)]      | filter all       |
-   |                      |                         | books with       |
-   |                      |                         | isbn number      |
-   +----------------------+-------------------------+------------------+
-   | //book[price<10]     | $..book[?(@.price<10)]  | filter all       |
-   |                      |                         | books cheaper    |
-   |                      |                         | than 10          |
-   +----------------------+-------------------------+------------------+
-   | //*                  | $..*                    | all elements     |
-   |                      |                         | in XML           |
-   |                      |                         | document; all    |
-   |                      |                         | members of       |
-   |                      |                         | JSON data item   |
-   +----------------------+-------------------------+------------------+
+   +======================+=========================+=================+
+   | XPath                | JSONPath                | Result          |
+   +======================+=========================+=================+
+   | /store/book/author   | $.store.book[*].author  | the authors of  |
+   |                      |                         | all books in    |
+   |                      |                         | the store       |
+   +----------------------+-------------------------+-----------------+
+   | //author             | $..author               | all authors     |
+   +----------------------+-------------------------+-----------------+
+   | /store/*             | $.store.*               | all things in   |
+   |                      |                         | store, which    |
+   |                      |                         | are some books  |
+   |                      |                         | and a red       |
+   |                      |                         | bicycle         |
+   +----------------------+-------------------------+-----------------+
+   | /store//price        | $.store..price          | the prices of   |
+   |                      |                         | everything in   |
+   |                      |                         | the store       |
+   +----------------------+-------------------------+-----------------+
+   | //book[3]            | $..book[2]              | the third book  |
+   +----------------------+-------------------------+-----------------+
+   | //book[last()]       | "$..book[(@.length-1)]" | the last book   |
+   |                      | "$..book[-1]"           | in order        |
+   +----------------------+-------------------------+-----------------+
+   | //book[position()<3] | "$..book[0,1]"          | the first two   |
+   |                      | "$..book[:2]"           | books           |
+   +----------------------+-------------------------+-----------------+
+   | //book[isbn]         | $..book[?(@.isbn)]      | filter all      |
+   |                      |                         | books with isbn |
+   |                      |                         | number          |
+   +----------------------+-------------------------+-----------------+
+   | //book[price<10]     | $..book[?(@.price<10)]  | filter all      |
+   |                      |                         | books cheaper   |
+   |                      |                         | than 10         |
+   +----------------------+-------------------------+-----------------+
+   | //*                  | $..*                    | all elements in |
+   |                      |                         | XML document;   |
+   |                      |                         | all member      |
+   |                      |                         | values and      |
+   |                      |                         | array elements  |
+   |                      |                         | contained in    |
+   |                      |                         | JSON value      |
+   +----------------------+-------------------------+-----------------+
 
-     Table 2: Example JSONPath expressions applied to the example JSON
-                                 data item
+       Table 2: Example JSONPath expressions applied to the example
+                                JSON value
 
 3.  JSONPath Syntax and Semantics
 
