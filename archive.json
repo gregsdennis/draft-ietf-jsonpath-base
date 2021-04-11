@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2021-04-01T01:07:06.092668+00:00",
+  "timestamp": "2021-04-11T01:10:00.638436+00:00",
   "repo": "ietf-wg-jsonpath/draft-ietf-jsonpath-base",
   "labels": [
     {
@@ -3993,7 +3993,7 @@
       "labels": [],
       "body": "Also addressing Glyn's point \r\n\r\n> 3. \"script\" expressions (`()`) - I'd hope we could offer minimal support for these without too much contention.\r\n\r\nfrom #78 here, obviously common agreement exists about the \"bracket child operator\", selecting a child value\r\n* either from a JSON object by `\"name\"`\r\n* or from a JSON array by `index`.\r\n\r\nSo in `$..[<expr>]` the result of expression `<expr>` will be interpreted as a member name or element index depending on the parent value type. While accepting this important statement, let's have a look at @danielaparker's JSON example in [#88](https://github.com/ietf-wg-jsonpath/draft-ietf-jsonpath-base/issues/88#issuecomment-808522662): \r\n\r\n```\r\n{\r\n  \"firstName\": \"John\",\r\n  \"address\"  : {\r\n    \"city\" : \"Nara\",\r\n  }\r\n}\r\n```\r\nApplying following queries gives us\r\n\r\n| expression | result |\r\n|:--:|:--:|\r\n|`$.firstName`| `[\"John\"]` |\r\n|`$['firstName']`| `[\"John\"]` |\r\n|`$[@.firstName] === $['John']`| `[]` |\r\n|`$.address.city`| `[\"Nara\"]` |\r\n|`$['address']['city']`| `[\"Nara\"]` |\r\n|`$['address.city']`| `[]` |\r\n|`$[@.address.city] === $['Nara']`| `[]` |\r\n\r\naccording to the *member name* or *element index* interpretation principle.\r\n\r\nIn general any query expression ala `$.x[@.a.b.c]` means:\r\n\r\n\"Find *member name* or *element index* of JSON value named `\"x\"` as the value of its descendant node location `'@.a.b.c'`\". \r\n\r\nFrom my point of view it is of very low practical use to bury *member name* or *element index* of any JSON value deep down in its subtree.\r\n\r\nMy `[@.length-1]` index arithmetic is also generally commented of being of low practical use. \r\n\r\nUsing root value symbol `$` in `$.x[$.id]` meaning *member name* or *element index* referencing might be of some practical use, but potentially leads to security issues.\r\n\r\nAs a consequence of this I propose to completely dispense use of `$` and `@` in other expressions than filter expressions.\r\n",
       "createdAt": "2021-03-29T11:55:05Z",
-      "updatedAt": "2021-03-31T09:55:23Z",
+      "updatedAt": "2021-04-09T09:23:54Z",
       "closedAt": null,
       "comments": [
         {
@@ -4086,6 +4086,13 @@
           "body": "> I simply would like to discuss effort to benefit ratio before.\r\n\r\nAgreed. And I'm concerned about the end user complexity/benefit ratio too as I've mentioned elsewhere. My personal preference is to focus on the core/common features or at least to get them nailed down first.",
           "createdAt": "2021-03-31T09:55:23Z",
           "updatedAt": "2021-03-31T09:55:23Z"
+        },
+        {
+          "author": "gregsdennis",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Worth mentioning: a [StackOverflow question](https://stackoverflow.com/q/67017189/878701) just came in regarding nested query expressions.",
+          "createdAt": "2021-04-09T09:23:46Z",
+          "updatedAt": "2021-04-09T09:23:54Z"
         }
       ]
     },
@@ -13166,7 +13173,7 @@
       "id": "MDExOlB1bGxSZXF1ZXN0NjAyMTAxNDgw",
       "title": "Editorial: Remove term \"data item\"",
       "url": "https://github.com/ietf-wg-jsonpath/draft-ietf-jsonpath-base/pull/90",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "cabo",
       "authorAssociation": "MEMBER",
       "assignees": [],
@@ -13175,17 +13182,19 @@
       ],
       "body": "See discussion in #84.\r\n\r\nTo do: What exactly doesn't $..* stand for -- the table currently says \"member values\" (i.e., no array elements).  Is that true?",
       "createdAt": "2021-03-27T16:13:01Z",
-      "updatedAt": "2021-03-29T09:59:01Z",
+      "updatedAt": "2021-04-10T09:52:36Z",
       "baseRepository": "ietf-wg-jsonpath/draft-ietf-jsonpath-base",
       "baseRefName": "main",
       "baseRefOid": "4a129f30e0992744ed3d60a7a136994fa0db26e2",
       "headRepository": "ietf-wg-jsonpath/draft-ietf-jsonpath-base",
       "headRefName": "nodataitem",
       "headRefOid": "b9601323a0d84a453bd9542ca4ada49d35d0a095",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2021-04-10T09:52:33Z",
+      "mergedAt": "2021-04-10T09:52:33Z",
+      "mergedBy": "glyn",
+      "mergeCommit": {
+        "oid": "c8597e87e9735338ceca4eb6a99c15bf5148dcf2"
+      },
       "comments": [],
       "reviews": [
         {
