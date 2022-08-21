@@ -248,6 +248,9 @@ Unicode Scalar Value:
 Singular Path:
 : A JSONPath expression built from selectors which each select at most one node.
 
+Clause:
+: A single item within a bracketed (`[]`) selector.
+
 For the purposes of this specification, a value as defined by
 {{-json}} is also viewed as a tree of nodes.
 Each node, in turn, holds a value.
@@ -320,19 +323,18 @@ $.store.book[?(@.price < 10)].title
 
 {{tbl-overview}} provides a quick overview of the JSONPath syntax elements.
 
-| JSONPath    | Description                                                                                                                         |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `$`         | [the root node](#root-selector)                                                                                                     |
-| `@`         | the current node: within [filter selectors](#filter-selector)                                                                     |
-| `.name`     | child selectors for JSON objects: [dot selector](#dot-selector)                                                                     |
-| `['name']`  | child selectors for JSON objects: [index selector](#index-selector)                                                                 |
-| `..name` <br> `..[3]` | descendants: [descendant selector](#descendant-selectors)                                                                     |
-| `.*` <br> `[*]` | all child member values and array elements: [dot wildcard selector](#wildcard), [index wildcard selector](#index-wildcard-selector) |
-| `[3]`       | [index (subscript) selector](#index-selector): index current node as an array (from 0)                                              |
-| `[..,..]`   | [list selector](#list-selector): allow combining selector styles                                                                    |
-| `[0:100:5]` | [array slice selector](#slice): start:end:step                                                                                      |
-| `?...`      | [filter selector](#filter-selector)                                                                                                 |
-| `()`        | expression: within [filter selectors](#filter-selector)                                                                            |
+| JSONPath              | Description                                                                                                                             |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| `$`                   | [the root node](#root-selector)                                                                                                         |
+| `@`                   | the current node: within [filter selectors](#filter-selector)                                                                           |
+| `.name`               | child selectors for JSON objects: [dot selector](#dot-selector)                                                                         |
+| `[...]`               | bracketed selectors for JSON objects and arrays, containing one or more clauses, separated by commas: [index selector](#index-selector) |
+| `name`                | [name clause](#index-selector): index current node as an object                                                                         |
+| `3`                   | [index clause](#index-selector): index current node as an array (from 0)                                                                |
+| `0:100:5`             | [array slice clause](#slice): start:end:step                                                                                            |
+| `?(...)`              | [expression filter clause](#filter-selector):                                                                                           |
+| `..name` <br> `..[3]` | descendants: [descendant selector](#descendant-selectors)                                                                               |
+| `.*` <br> `[*]`       | all child member values and array elements: [dot wildcard selector](#wildcard), [index wildcard selector](#index-wildcard-selector)     |
 {: #tbl-overview title="Overview of JSONPath"}
 
 # JSONPath Examples
