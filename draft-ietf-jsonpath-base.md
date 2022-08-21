@@ -328,13 +328,14 @@ $.store.book[?(@.price < 10)].title
 | `$`                   | [the root node](#root-selector)                                                                                                         |
 | `@`                   | the current node: within [filter selectors](#filter-selector)                                                                           |
 | `.name`               | child selectors for JSON objects: [dot selector](#dot-selector)                                                                         |
+| `.*`                  | all child member values and array elements: [dot wildcard selector](#wildcard)                                                          |
 | `[...]`               | bracketed selectors for JSON objects and arrays, containing one or more clauses, separated by commas: [index selector](#index-selector) |
 | `'name'`              | [name clause](#index-selector): index current node as an object                                                                         |
 | `3`                   | [index clause](#index-selector): index current node as an array (from 0)                                                                |
 | `0:100:5`             | [array slice clause](#slice): start:end:step                                                                                            |
+| `*`                   | [wildcard clause](#index-wildcard-selector)                                                                                             |
 | `?(...)`              | [expression filter clause](#filter-selector):                                                                                           |
 | `..name` <br> `..[3]` | descendants: [descendant selector](#descendant-selectors); supports all clause types                                                    |
-| `.*` <br> `[*]`       | all child member values and array elements: [dot wildcard selector](#wildcard), [index wildcard selector](#index-wildcard-selector)     |
 {: #tbl-overview title="Overview of JSONPath"}
 
 # JSONPath Examples
