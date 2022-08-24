@@ -249,8 +249,8 @@ Singular Path:
 : A JSONPath expression built from selectors which each select at most one node.
 
 Criterion:
-: A single item within a bracketed (`[]`) selector that identifies the values
-  to be selected.
+: A single item within a bracketed (`[]`) value selector that identifies which values
+  are to be selected.
 
 For the purposes of this specification, a value as defined by
 {{-json}} is also viewed as a tree of nodes.
@@ -311,7 +311,7 @@ Mixing these syntaxes within a single path is also useful.
 
 JSONPath allows the wildcard symbol `*` to select any member of an
 object or any element of an array ({{wildcard}}).
-The descendant operators (which start with `..`) select some or all of the descendants ({{descendant-selectors}}) of a node.
+The descendant operator (`..`) recursively selects some or all of the descendants ({{descendant-selectors}}) of a node.
 The array slice
 syntax `[start:end:step]` allows selecting a regular selection of an
 element from an array, giving a start position, an end position, and
@@ -331,12 +331,12 @@ $.store.book[?(@.price < 10)].title
 | `$`          | [root node selector](#root-selector)                                                                               |
 | `[*]`        | [wildcard selector](#index-wildcard-selector): selects all immediate descendants of objects and arrays             |
 | `..`         | [descendant selector](#descendant-selectors): recursively selects all descendants of objects and arrays            |
-| `[...]`      | [value selector](#index-selector) for JSON objects and arrays; contains one or more clauses, separated by commas   |
-| `'name'`     | [name criterion](#index-selector): index current node as an object                                                 |
-| `3`          | [index criterion](#index-selector): index current node as an array (from 0)                                        |
+| `[...]`      | [value selector](#value-selector) for JSON objects and arrays; contains one or more clauses, separated by commas   |
+| `'name'`     | [name criterion](#index-criterion): index current node as an object                                                 |
+| `3`          | [index criterion](#index-criterion): index current node as an array (from 0)                                        |
 | `0:100:5`    | [array slice criterion](#slice): start:end:step for arrays                                                         |
-| `?(...)`     | [filter criterion](#filter-selector): selection based on expressions by applying the expression to each child node |
-| `@`          | [current node selector](#filter-selector) (valid only within filter clauses)                                       |
+| `?(...)`     | [filter criterion](#filter-criterion): selection based on expressions by applying the expression to each child node |
+| `@`          | [current node selector](#filter-criterion) (valid only within filter clauses)                                       |
 | `.name`      | shorthand for `['name']`                                                                                           |
 | `.*`         | shorthand for `.*`                                                                                                 |
 | `..name`     | shorthand for `..['name']`                                                                                         |
@@ -733,6 +733,7 @@ Note: The ordering of the results for the `$..[*]` and `$..*` examples above is 
 
 The value selector has the form `[<criteria>]` where `<criteria>` is a comma-delimited
 collection of individual criteria, each of which is described below.
+At least one criterion MUST be supplied.
 
 ~~~~ anbf
 value-selector = "[" S list-entry 1*(S "," S list-entry) S "]"
