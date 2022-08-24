@@ -335,7 +335,7 @@ $.store.book[?(@.price < 10)].title
 | `'name'`     | [name criterion](#index-criterion): index current node as an object                                                 |
 | `3`          | [index criterion](#index-criterion): index current node as an array (from 0)                                        |
 | `0:100:5`    | [array slice criterion](#slice): start:end:step for arrays                                                         |
-| `?(...)`     | [filter criterion](#filter-criterion): selection based on expressions by applying the expression to each child node |
+| `?...`       | [filter criterion](#filter-criterion): selection based on expressions by applying the expression to each child node |
 | `@`          | [current node selector](#filter-criterion) (valid only within filter clauses)                                       |
 | `.name`      | shorthand for `['name']`                                                                                           |
 | `.*`         | shorthand for `.*`                                                                                                 |
