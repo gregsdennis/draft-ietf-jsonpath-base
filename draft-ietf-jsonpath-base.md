@@ -680,6 +680,13 @@ criterion `.name`.  Rather than simple concatenation, which would result in thre
 dots (e.g. `...*` or `...name`), the shorthand forms omit one of the dots so that these
 pairings become `..*` and `..name` respectively.
 
+~~~~ abnf
+descendant-wild-selector = ".." wildcard
+descendant-name-selector = ".." dot-member-name
+~~~~
+<!-- dot-member-name defined in name criterion section -->
+<!-- GREG: I'm defining these, but they don't really fit in with the rest of the ABNF; they're not referenced anywhere. -->
+
 #### Semantics
 {: unnumbered}
 
@@ -694,10 +701,7 @@ This definition does not stipulate the order in which the children of an object 
 
 The resultant nodelist of a `descendant-selector` applied to a node must be a sub-sequence of an array-sequenced preorder of the descendants of the node.
 
-<!--
-Is it worth putting a note/allowance for implementations to consider the selector that follows a ..
-when processing it in order to improve performance?
--->
+<!-- GREG: Is it worth putting a note/allowance for implementations to consider the selector that follows a .. when processing it in order to improve performance? -->
 
 #### Examples
 {: unnumbered}
@@ -751,10 +755,6 @@ list-entry     =  ( quoted-member-name /
 {: unnumbered}
 
 An name criterion `'name'` addresses at most one object member value.
-
-~~~~ abnf
-index-selector      = "[" S (quoted-member-name / element-index) S "]"
-~~~~
 
 Applying the `quoted-member-name` to an object value in its input nodelist,
 it is required to select the corresponding member value.
