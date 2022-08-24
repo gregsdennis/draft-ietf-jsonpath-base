@@ -665,7 +665,7 @@ Queries:
 #### Syntax
 {: unnumbered}
 
-The descendant selectors consist of a double dot `..`.
+The descendant selector consists of a double dot `..`.
 
 ~~~~ abnf
 descendant-selector = ".."
@@ -732,8 +732,8 @@ Note: The ordering of the results for the `$..[*]` and `$..*` examples above is 
 ### Value Selector
 
 The value selector has the form `[<criteria>]` where `<criteria>` is a comma-delimited
-collection of individual criteria, each of which is described below.
-At least one criterion MUST be supplied.
+collection of one or more criteria.
+Each criterion is defined below.
 
 ~~~~ anbf
 value-selector = "[" S list-entry 1*(S "," S list-entry) S "]"
@@ -807,9 +807,9 @@ HEXDIG = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
 ~~~~
 
 A shorthand for `quoted-member-name` exists as `dotted-member-name`.
-These MAY be used interchangeably.
+These may be used interchangeably.
 
-A dot selector starts with a dot `.` followed by an object's member name.
+A `dotted-member-name` starts with a dot `.` followed by an object's member name.
 
 ~~~~ abnf
 dotted-member-name    = "." dot-member-name
@@ -914,12 +914,14 @@ Notes:
 ##### Semantics {#index-semantics}
 {: unnumbered}
 
-The `index-selector` applied with an `element-index` to an array selects an array element using a zero-based index.
-For example, selector `[0]` selects the first and selector `[4]` the fifth element of a sufficiently long array.
+The index criterion applied with an `element-index` to an array selects an array element using a zero-based index.
+For example, the value selector `[0]` selects the first element,
+and the value selector `[4]`selects the fifth element of a sufficiently long array.
 Nothing is selected, and it is not an error, if the index lies outside the range of the array. Nothing is selected from a value that is not an array.
 
 A negative `element-index` counts from the array end.
-For example, selector `[-1]` selects the last and selector `[-2]` selects the penultimate element of an array with at least two elements.
+For example, the value selector `[-1]` selects the last element,
+and the value selector `[-2]` selects the penultimate element of an array with at least two elements.
 As with non-negative indexes, it is not an error if such an element does
 not exist; this simply means that no element is selected.
 
@@ -1015,9 +1017,6 @@ JavaScript or Python behavior.
 
 ###### Detailed Semantics
 {: unnumbered}
-
-An array selector is either an array slice or an array index, which is defined
-in terms of an array slice.
 
 A slice expression selects a subset of the elements of the input array, in
 the same order
