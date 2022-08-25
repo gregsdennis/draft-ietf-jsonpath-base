@@ -326,21 +326,22 @@ $.store.book[?(@.price < 10)].title
 
 {{tbl-overview}} provides a quick overview of the JSONPath syntax elements.
 
-| JSONPath     | Description                                                                                                        |
-|--------------|--------------------------------------------------------------------------------------------------------------------|
-| `$`          | [root node selector](#root-selector)                                                                               |
-| `[*]`        | [wildcard selector](#index-wildcard-selector): selects all immediate descendants of objects and arrays             |
-| `..`         | [descendant selector](#descendant-selectors): recursively selects all descendants of objects and arrays            |
-| `[...]`      | [value selector](#value-selector) for JSON objects and arrays; contains one or more clauses, separated by commas   |
-| `'name'`     | [name criterion](#index-criterion): index current node as an object                                                 |
-| `3`          | [index criterion](#index-criterion): index current node as an array (from 0)                                        |
-| `0:100:5`    | [array slice criterion](#slice): start:end:step for arrays                                                         |
-| `?...`       | [filter criterion](#filter-criterion): selection based on expressions by applying the expression to each child node |
-| `@`          | [current node selector](#filter-criterion) (valid only within filter clauses)                                       |
-| `.name`      | shorthand for `['name']`                                                                                           |
-| `.*`         | shorthand for `.*`                                                                                                 |
-| `..name`     | shorthand for `..['name']`                                                                                         |
-| `..*`        | shorthand for `..[*]`                                                                                              |
+| JSONPath          | Description                                                                                                           |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------|
+| `$`               | [root node selector](#root-selector)                                                                                  |
+| `[*]`             | [wildcard selector](#index-wildcard-selector): selects all immediate descendants of objects and arrays                |
+| `..[*]`           | [descendant wildcard selector](#descendant-selectors): recursively selects all descendants of objects and arrays      |
+| `[<criteria>]`    | [value selector](#value-selector) for JSON objects and arrays; contains one or more clauses, separated by commas      |
+| `..[<criteria>]`  | [value selector](#value-selector) for JSON objects and arrays; contains one or more clauses, separated by commas      |
+| `'name'`          | [name criterion](#index-criterion): index current node as an object                                                   |
+| `3`               | [index criterion](#index-criterion): index current node as an array (from 0)                                          |
+| `0:100:5`         | [array slice criterion](#slice): start:end:step for arrays                                                            |
+| `?...`            | [filter criterion](#filter-criterion): selection based on expressions by applying the expression to each child node   |
+| `@`               | [current node selector](#filter-criterion) (valid only within filter clauses)                                         |
+| `.name`           | shorthand for `['name']`                                                                                              |
+| `.*`              | shorthand for `.*`                                                                                                    |
+| `..name`          | shorthand for `..['name']`                                                                                            |
+| `..*`             | shorthand for `..[*]`                                                                                                 |
 {: #tbl-overview title="Overview of JSONPath"}
 
 # JSONPath Examples
@@ -476,8 +477,9 @@ followed by a possibly empty sequence of *selectors*.
 
 ~~~~ abnf
 json-path = root-selector *(S (wild-selector      /
-                               descendant-selector /
-                               value-selector))
+                               descendant-wild-selector /
+                               value-selector /
+                               descendant-value-selector))
 ~~~~
 
 The syntax and semantics of each selector is defined below.
@@ -565,22 +567,18 @@ A JSONPath query consists of a sequence of selectors. Valid selectors are
 
   * Root selector `$` (used at the start of a query and in expressions)
   * Wildcard selector `[*]`
-  * Descendants selectors consisting of a double dot `..`
   * Value selector `[<criterion>]`, where `<criterion>` is one or more of
     several criteria types, which are used to identify the nodes to select,
     delineated by commas
   * Current item selector `@` (only valid in expressions)
 
-<!-- GREG: move this to the name criteria -->
+The wildcard and value selectors can be made to recursively select values within
+nested objects and arrays be prefixing them with `..` turning them into
 
-Note that processing the dot selector, string-valued index selector,
-and filter selector all potentially require matching strings against
-strings, with those strings coming from the JSONPath and from member
-names and string values in the JSON to which it is being applied.
-Two strings MUST be considered equal if and only if they are identical
-sequences of Unicode scalar values. In other words, normalization operations
-MUST NOT be applied to either the string from the JSONPath or from the JSON
-prior to comparison.
+  * Descendant wildcard selector `..[*]`
+  * Descendant value selector `..[<criterion>]`
+
+For the pur
 
 ### Root Selector
 
@@ -660,32 +658,34 @@ Queries:
 | `$.a[*]` | `5` <br> `3` | `$['a'][0]` <br> `$['a'][1]`     | Array members      |
 {: title="Index wildcard selector examples"}
 
-### Descendant Selector
+### Descendant Selectors
 
 #### Syntax
 {: unnumbered}
 
-The descendant selector consists of a double dot `..`.
+The descendant selectors consists of a double dot `..` followed by either a
+wildcard selector or a value selector.
 
 ~~~~ abnf
-descendant-selector = ".."
+descendant-wild-selector    = (descendant-wild-index-selector \
+                               descendant-wild-shorthand)
+descendant-wild             = ".." index-wild-selector
+descendant-wild-shorthand = ".." wildcard
+
+descendant-value-selector   = (descendant-value \
+                               descendant-name-shorthand)
+descendant-value            = ".." value-selector
+descendant-name-shorthand = ".." dot-member-name
 ~~~~
 
-A descendant selector MUST BE followed by either a wildcard selector or a value selector.
-A consequence of this is that a path MUST NOT end with a descendant selector.
+`descendant-wild` and `descendant-wild-shorthand` may be used interchangeably.
 
-Shorthand forms exist for the occasions where the descendant selector is followed by either 
-shorthand wildcard selector `.*` or the shorthand value selector with a name
-criterion `.name`.  Rather than simple concatenation, which would result in three consecutive
-dots (e.g. `...*` or `...name`), the shorthand forms omit one of the dots so that these
-pairings become `..*` and `..name` respectively.
+`descendant-name-shorthand` is a shorthand notation for the occasion when a
+descendant value selector is used with a single, specially qualified name criterion.
+The shorthand is not valid for value selectors containing more than one criteria
+or other criteria types.
 
-~~~~ abnf
-descendant-wild-selector = ".." wildcard
-descendant-name-selector = ".." dot-member-name
-~~~~
-<!-- dot-member-name defined in name criterion section -->
-<!-- GREG: I'm defining these, but they don't really fit in with the rest of the ABNF; they're not referenced anywhere. -->
+<!-- GREG: dot-member-name defined in name criterion section; add link -->
 
 #### Semantics
 {: unnumbered}
@@ -865,6 +865,14 @@ the initial dot.
 The name criterion applied to an object
 selects the node of the corresponding member value from it, if and only if that object has a member with that name.
 Nothing is selected from a value that is not a object.
+
+Note that processing the name criterion potentially requires matching strings against
+strings, with those strings coming from the JSONPath and from member
+names and string values in the JSON to which it is being applied.
+Two strings MUST be considered equal if and only if they are identical
+sequences of Unicode scalar values. In other words, normalization operations
+MUST NOT be applied to either the string from the JSONPath or from the JSON
+prior to comparison.
 
 ##### Examples
 {: unnumbered}
