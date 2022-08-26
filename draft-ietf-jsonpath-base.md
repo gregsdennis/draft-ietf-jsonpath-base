@@ -330,9 +330,9 @@ $.store.book[?(@.price < 10)].title
 |-------------------|-----------------------------------------------------------------------------------------------------------------------|
 | `$`               | [root node selector](#root-selector)                                                                                  |
 | `[*]`             | [wildcard selector](#index-wildcard-selector): selects all immediate descendants of objects and arrays                |
-| `..[*]`           | [descendant wildcard selector](#descendant-selectors): recursively selects all descendants of objects and arrays      |
+| `..[*]`           | [descendant wildcard selector](#descendant-selectors): recursive version of the wildcard selector                     |
 | `[<criteria>]`    | [value selector](#value-selector) for JSON objects and arrays; contains one or more clauses, separated by commas      |
-| `..[<criteria>]`  | [value selector](#value-selector) for JSON objects and arrays; contains one or more clauses, separated by commas      |
+| `..[<criteria>]`  | [descendant value selector](#descendant-selectors) recursive version of the value selector                            |
 | `'name'`          | [name criterion](#index-criterion): index current node as an object                                                   |
 | `3`               | [index criterion](#index-criterion): index current node as an array (from 0)                                          |
 | `0:100:5`         | [array slice criterion](#slice): start:end:step for arrays                                                            |
@@ -685,7 +685,7 @@ descendant value selector is used with a single, specially qualified name criter
 The shorthand is not valid for value selectors containing more than one criteria
 or other criteria types.
 
-<!-- GREG: dot-member-name defined in name criterion section; add link -->
+<!-- GREG: dot-member-name defined in name-criterion section; add link -->
 
 #### Semantics
 {: unnumbered}
