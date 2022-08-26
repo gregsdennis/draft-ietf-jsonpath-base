@@ -749,6 +749,17 @@ list-entry     =  ( quoted-member-name /
                   )
 ~~~~
 
+#### Semantics
+
+A value selector operates on objects and arrays only.
+It contains a comma-delimited collection of matching criteria to indicate which
+object members and array elements to selects.
+
+Each criterion type functions differently and may be defined to operate on only
+objects, only arrays, or both.
+
+Criteria of different types may be combined within a single value selector.
+
 #### Name Criterion
 
 ##### Syntax {#syntax-index}
@@ -923,13 +934,13 @@ Notes:
 {: unnumbered}
 
 The index criterion applied with an `element-index` to an array selects an array element using a zero-based index.
-For example, the value selector `[0]` selects the first element,
-and the value selector `[4]`selects the fifth element of a sufficiently long array.
+For example, `0` selects the first element,
+and `4`selects the fifth element of a sufficiently long array.
 Nothing is selected, and it is not an error, if the index lies outside the range of the array. Nothing is selected from a value that is not an array.
 
 A negative `element-index` counts from the array end.
-For example, the value selector `[-1]` selects the last element,
-and the value selector `[-2]` selects the penultimate element of an array with at least two elements.
+For example, `-1` selects the last element,
+and `-2` selects the penultimate element of an array with at least two elements.
 As with non-negative indexes, it is not an error if such an element does
 not exist; this simply means that no element is selected.
 
